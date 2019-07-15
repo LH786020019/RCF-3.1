@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 16:02:23
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-15 11:11:13
+ * @LastEditTime: 2019-07-15 11:32:09
  * @Description: file content
  -->
 # 构建 RCF
@@ -47,8 +47,8 @@ g++ -std=c++1y SampleTcpClientServer.cpp ../../src/RCF/RCF.cpp -I../../include -
 
 ### 3. 构建定义
 下表列出了 RCF 构建定义。
-|Build define|	意义|
-|--|--|
+| Build define |	意义 |
+| -- | -- |
 |RCF_BUILD_DLL|	构建一个 DLL 导出 RCF。|
 |RCF_USE_CUSTOM_ALLOCATOR| 使用自定义内存分配器支持构建。	|
 |RCF_USE_CLOCK_MONOTONIC|	使用 `clock_gettime()` 实现一个单调时钟(monotonic clock)。|
@@ -75,7 +75,7 @@ RCF 附带一组特性定义，允许用户使用一组特定的特性构建 RCF
 
 下表列出了所有可用的特性定义。
 |Feature define|	RCF feature|	Default value|
-|--|--|--|
+| -- | -- | -- |
 |RCF_FEATURE_SSPI|	 Win32基于SSPI的加密(NTLM, Kerberos, Schannel)	|1 on Windows. 0 otherwise.|
 |RCF_FEATURE_FILETRANSFER	|	文件传输|0|
 |RCF_FEATURE_SERVER|	非关键的 server 端功能(server到client的ping回调、server对象、会话超时)|	1|

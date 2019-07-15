@@ -2,10 +2,9 @@
  * @Author: haoluo
  * @Date: 2019-07-12 14:38:26
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-12 15:49:48
+ * @LastEditTime: 2019-07-15 11:28:14
  * @Description: file content
  -->
-@[TOC](教程)
 # 教程
 那么，什么是远程调用框架(Remote Call Framework, RCF)？你会用它来做什么呢？
 
