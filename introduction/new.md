@@ -2,10 +2,10 @@
  * @Author: haoluo
  * @Date: 2019-07-12 14:10:54
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-12 14:30:01
+ * @LastEditTime: 2019-07-15 11:26:07
  * @Description: file content
  -->
-### 3.0版本有什么新功能？
+## 3.0版本有什么新功能？
 `RCF 3.0` 已经进行了现代化，利用了 C++11、C++14 和 C++17 更新中 C++ 标准中大量的语言和库特性。
 
 此版本 RCF 不再依赖 [Boost](http://www.boost.org/) 库 。Boost 类和函数的所有用法，如 `boost::shared_ptr<>` 和 `boost::bind()`，都已被标准 C++ 对应项替换。

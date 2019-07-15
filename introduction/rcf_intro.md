@@ -2,10 +2,10 @@
  * @Author: haoluo
  * @Date: 2019-07-12 14:16:08
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-12 14:16:08
+ * @LastEditTime: 2019-07-15 11:26:08
  * @Description: file content
  -->
-### RCF 是什么？
+## RCF 是什么？
 `RCF` (Remote Call Framework，远程调用框架)是一个面向 C++ 的跨平台进程间通信框架。
 
 与其他通信框架不同，RCF 不使用单独的 IDL(Interface Definition Language，接口定义语言)。RCF 接口是在 C++ 中直接定义的，用户定义数据类型的序列化也是在 C++ 中实现的。代替一个单独的 IDL 编译器工具，RCF 使用 C++ 编译器生成 `client` 和 `server` 存根。
