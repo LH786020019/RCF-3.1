@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 16:02:23
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-15 11:32:09
+ * @LastEditTime: 2019-07-15 11:34:04
  * @Description: file content
  -->
 # 构建 RCF
@@ -72,7 +72,10 @@ namespace RCF {
 
 ### 4. 特性定义
 RCF 附带一组特性定义，允许用户使用一组特定的特性构建 RCF。
-
+|    name    | age |
+| ---------- | --- |
+| LearnShare |  12 |
+| Mike       |  32 |
 下表列出了所有可用的特性定义。
 |Feature define|	RCF feature|	Default value|
 | -- | -- | -- |
