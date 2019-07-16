@@ -45,4 +45,4 @@ RCF_END(I_Calculator)
 
 一个 RCF 接口中的方法是根据它们出现的顺序来标识的。每个方法都有一个方法 ID 号，第一个方法从 0 开始，然后每个方法递增 1。由于方法 ID 号标识方法，从版本控制的角度来看（ 请参阅[版本控制](https://love2.io/@lh786020019/doc/RCF-3.1/user_guide/versioning.md) ），重要的是不要在一个 RCF 接口中重新排列方法的顺序，或者在现有方法之间插入方法（ 如果已经使用该接口部署了 client 和 server ）。
 
-在一个 RCF 接口中可以出现的方法的数量是有限制的。这个限制默认设置为100，可以通过在您的 build 中定义 `RCF_MAX_METHOD_COUNT` 来调整(请参见构建 RCF)。
+在一个 RCF 接口中可以出现的方法的数量是有限制的。这个限制默认设置为100，可以通过在您的 build 中定义 `RCF_MAX_METHOD_COUNT` 来调整（ 请参阅[构建 RCF](https://love2.io/@lh786020019/doc/RCF-3.1/building_RCF/index.md) ）。
