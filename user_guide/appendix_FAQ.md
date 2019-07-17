@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:38:20
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:33:38
+ * @LastEditTime: 2019-07-17 18:42:02
  * @Description: file content
  -->
 ## 附录 —— 常见问题解答
@@ -104,6 +104,7 @@ RCF 不链接到任何其他 `Boost` 库。
         mRcfServerPtr( new RcfServer(...) ) {}
     ```
     然后，您可以在应用程序的任何地方包含 `X.h`，而不需要包含任何 RCF 头文件。
+
 ### 2. 平台
 1. 为什么我耗尽了 Windows XP 上的套接字句柄？
 无论何时建立一个传出 TCP 连接，都必须为连接分配一个本地端口号。在 Windows XP 中，这些本地端口(有时称为临时端口)默认是从大约 4000 个端口号的范围分配的。
@@ -123,6 +124,7 @@ RCF 不链接到任何其他 `Boost` 库。
 对于 Unix 上的本地 RPC, RCF 支持 Unix 本地套接字传输([RCF::UnixLocalEndpoint](http://www.deltavsoft.com/doc/class_r_c_f_1_1_unix_local_endpoint.html))。
 5. RCF 支持 IPv6 吗？
 是的，请参阅 [IPv4/IPv6](https://love2.io/@lh786020019/doc/RCF-3.1/user_guide/transports.md)。
+
 ### 3. 编程
 1. 当远程调用正在进行时，如何防止用户界面失去响应？
 要么在非 UI 线程上运行远程调用，要么使用进度回调函数以短时间间隔重新绘制 UI。请参阅 [Client 进度通知](https://love2.io/@lh786020019/doc/RCF-3.1/user_guide/client-side_programming.md)。
@@ -226,6 +228,7 @@ RCF 将自动序列化和反序列化 `C++03 enum`，作为整数表示。
 可以。`wstring` 对象假设在 Linux 上用 `UTF-32` 表示，在 `Windows` 上用 `UTF-16` 表示，RCF 在序列化时将它们编码为 `UTF-8`。
 24. 我可以在 Linux 和 Windows 之间发送 `UTF-8` 编码的 `std::string` 对象吗？
 可以。RCF 将 `std::string` 序列化为一个由 8 位字符组成的序列，所以编码是 `ASCII`、`ISO-8859-1`、`UTF-8` 还是其他任何东西都无关紧要。
+
 ### 4. 其他问题
 为什么文档中的许多示例中都有双括号？
 以下代码片段将导致编译器错误：

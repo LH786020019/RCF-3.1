@@ -2,10 +2,11 @@
  * @Author: haoluo
  * @Date: 2019-07-15 11:44:30
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-16 16:00:09
+ * @LastEditTime: 2019-07-17 18:42:36
  * @Description: file content
  -->
 ## 客户端编程(Client-side Programming)
+
 ### 1. 进行远程调用
 远程调用总是通过一个 `RcfClient<>` 实例进行的。一旦您定义了一个 RCF 接口：
 ```cpp
@@ -119,6 +120,7 @@ for (std::size_t i=0; i<100; ++i){
 // Send final batch.
 client.getClientStub().flushBatch();
 ```
+
 ### 9. 自定义请求和响应数据
 通常，一次远程调用中从 client 传输到 server 的应用程序数据包含在远程调用的参数中。您还可以通过设置远程调用请求的用户数据字段来传输额外的信息。然后就可以在 server 上访问这些数据以及远程调用的参数。
 

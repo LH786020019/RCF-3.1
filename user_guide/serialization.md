@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-15 16:34:18
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:21:58
+ * @LastEditTime: 2019-07-17 18:44:21
  * @Description: file content
  -->
 ## 序列化
@@ -51,6 +51,7 @@ enum class Colors : std::int8_t {
 // 使用 SF_SERIALIZE_ENUM_CLASS() 指定 enum 类的基类型。
 SF_SERIALIZE_ENUM_CLASS(Colors, std::int8_t)
 ```
+
 ### 2. 用户定义的类型
 如果你有一个自己的类，并在 RCF 接口中使用它：
 ```cpp
@@ -119,6 +120,7 @@ namespace SF {
     }
 }
 ```
+
 ### 3. 二进制数据
 要发送二进制数据块，可以使用 [RCF::ByteBuffer](http://www.deltavsoft.com/doc/class_r_c_f_1_1_byte_buffer.html) 类：
 ```cpp
@@ -182,6 +184,7 @@ RCF_BEGIN(I_Echo, "I_Echo")
     RCF_METHOD_R1(std::uint64_t, Echo, std::uint64_t)
 RCF_END(I_Echo)
 ```
+
 ### 5. 从磁盘和到磁盘的序列化
 RCF 序列化可用于在磁盘和磁盘之间序列化对象。为此，使用 [SF::OBinaryStream](http://www.deltavsoft.com/doc/class_s_f_1_1_o_binary_stream.html) 和 [SF::IBinaryStream](http://www.deltavsoft.com/doc/class_s_f_1_1_i_binary_stream.html)：
 ```cpp

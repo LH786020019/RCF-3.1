@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:10:05
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 13:38:00
+ * @LastEditTime: 2019-07-17 18:44:00
  * @Description: file content
  -->
 ## 发布/订阅(Publish/Subscribe)
@@ -41,6 +41,7 @@ RCF 提供了一个内置的发布/订阅实现。
     // 关闭发布主题。所有订阅者将断开连接。
     publisherPtr->close();
 ```
+
 ### 2. 订阅者(Subscribers)
 要订阅一个发布者，请使用 [RCF::RcfServer::createSubscription<>()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#af8e3e5d679e47140e1560fa2915252d1)：
 ```cpp
@@ -89,6 +90,7 @@ void onSubscriptionDisconnected(RCF::RcfSession & session){
 ```cpp
         subscriptionPtr->close();
 ```
+
 ### 3. 访问控制
 访问控制可以以一个访问控制回调函数的形式应用于发布者，该回调函数将在发布 server 上为每个试图设置订阅的订阅者调用。与服务绑定访问控制类似，发布者访问控制可用于检查订阅者连接的 [RCF::RcfSession](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_session.html)，以获取任何相关的身份验证信息：
 ```cpp

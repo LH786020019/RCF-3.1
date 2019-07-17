@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-15 16:48:00
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 11:09:44
+ * @LastEditTime: 2019-07-17 18:46:19
  * @Description: file content
  -->
 ## 传输(Transports)
@@ -28,6 +28,7 @@ Server 和 client 传输负责网络消息的实际传输和接收。一个 `Rcf
     RcfClient<I_Echo> client( RCF::TcpEndpoint(50001) );
     RCF::ClientTransport & clientTransport = client.getClientStub().getTransport();
 ```
+
 ### 2. 传输配置(Transport Configuration)
 #### 2.1 最大传入消息长度
 对于 server 端传输，通常需要设置传入网络消息大小的上限。如果没有上限，格式不正确的请求可能导致 server 上任意大小的内存分配。
@@ -55,6 +56,7 @@ Server 和 client 传输负责网络消息的实际传输和接收。一个 `Rcf
         std::size_t requestSize = transport.getLastRequestSize();
         std::size_t responseSize = transport.getLastResponseSize();
 ```
+
 #### 2.2 连接限制
 设置一个 RCF server 传输的最大同时连接数：
 ```cpp
@@ -72,6 +74,7 @@ Server 和 client 传输负责网络消息的实际传输和接收。一个 `Rcf
     int port = server.getIpServerTransport().getPort();
     RcfClient<I_Echo> client(( RCF::TcpEndpoint(port) ));
 ```
+
 #### 2.4 基于 IP 的访问规则
 对于基于 IP 的 server 传输，可以根据 client 的 IP 地址允许或拒绝 client 访问。
 
@@ -101,6 +104,7 @@ Server 和 client 传输负责网络消息的实际传输和接收。一个 `Rcf
     // 从匹配 11.*.*.* 和 12.22.*.* 的IP地址连接的 client 将被拒绝访问，
     // 所有其他 client 将被允许。
 ```
+
 #### 2.5 IPv4/IPv6
 RCF 同时支持 IPv4 和 IPv6。默认情况下，在 RCF 中启用了 IPv6 支持，但是您可以定义 `RCF_FEATURE_IPV6=0` 来禁用它（ 参见[构建 RCF](https://love2.io/@lh786020019/doc/RCF-3.1/building_RCF/index.md) ）。
 
@@ -166,6 +170,7 @@ RCF 使用 POSIX `getaddrinfo()` 函数来解析 IP 地址。`getaddrinfo()` 可
         std::string localInterface = localIp.getIp();
         int localPort = localIp.getPort();
 ```
+
 #### 2.7 套接字级访问(Socket Level Access)
 RCF 提供对 client 和 server 传输的底层 OS 原语（ 如套接字(`sockets`)和句柄(`handles`) ）的访问。例如：
 ```cpp
@@ -224,12 +229,14 @@ Server 传输将 IP 地址解释为要监听的本地网络接口。例如，为
             RcfClient<I_Echo> client( RCF::UdpEndpoint("232.5.5.5", 50001) );
             client.Echo(RCF::Oneway, "ping");
 ```
+
 ##### 3.2.2 广播(Broadcasting)
 要发送广播消息，请指定一个广播 IP 地址和一个端口号：
 ```cpp
             RcfClient<I_Echo> client( RCF::UdpEndpoint("255.255.255.255", 50001) );
             client.Echo(RCF::Oneway, "ping");
 ```
+
 ##### 3.2.3 地址共享
 RCF 的 UDP server 传输可以配置为共享其地址绑定，这样多个 RcfServer 就可以在同一接口的同一端口上侦听。默认情况下，监听多播地址时启用此功能，但也可以在侦听非多播地址时启用。如果同一台机器上的多个进程需要监听相同的广播，这将非常有用：
 ```cpp
@@ -248,6 +255,7 @@ RCF 的 UDP server 传输可以配置为共享其地址绑定，这样多个 Rcf
         RcfClient<I_Echo> client( RCF::UdpEndpoint("255.255.255.255", 50001) );
         client.Echo(RCF::Oneway, "ping");
 ```
+
 ##### 3.2.4 Server 发现
 在 server 是在动态分配的端口上启动的情况下，多播和广播是向 client 通信 server IP 地址和端口的一种有用方法。例如：
 ```cpp
@@ -340,6 +348,7 @@ UNIX 域套接字的功能类似于 Win32 命名管道，它允许在同一台�
     server.start();
     RcfClient<I_Echo> client( RCF::UnixLocalEndpoint("/home/xyz/MySocket"));
 ```
+
 #### 3.5 HTTP/HTTPS
 RCF 支持通过 HTTP 和 HTTPS 协议进行隧道化远程调用( `tunneling remote call` )。特别是，远程调用可以通过 HTTP 和 HTTPS 代理进行定向。
 
@@ -364,6 +373,7 @@ HTTPS 本质上是在 SSL 协议之上分层的 HTTP 协议。因此，HTTPS 的
             "CertificateName") ) );
         server.start();
 ```
+
 ##### 3.5.2 Client 端
 Client 端配置类似，对于一个 HTTP client，请使用 [RCF::HttpEndpoint](http://www.deltavsoft.com/doc/class_r_c_f_1_1_http_endpoint.html)：
 ```cpp
@@ -382,6 +392,7 @@ Client 端配置类似，对于一个 HTTP client，请使用 [RCF::HttpEndpoint
             client.getClientStub().setHttpProxyPort(8080);
             client.Print("Hello World");
 ```
+
 ##### 3.5.3 反向代理
 HTTP 反向代理在 Internet 上很常见，用于为后端(back-end) HTTP server 提供负载平衡(load balancing)和 SSL 卸载(offloadin)等功能。
 

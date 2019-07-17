@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 09:18:41
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 11:48:13
+ * @LastEditTime: 2019-07-17 18:45:08
  * @Description: file content
  -->
 ## 传输协议
@@ -22,6 +22,7 @@ RCF 目前支持 `NTLM`、`Kerberos`、`Negotiate` 和 `SSL` 传输协议。`NTL
         RCF::RcfSession & session = RCF::getCurrentRcfSession();
         RCF::TransportProtocol tp = session.getTransportProtocol();
 ```
+
 ### 1. NTLM
 在一个 client 连接上配置 `NTLM`：
 ```cpp
@@ -36,6 +37,7 @@ RCF 目前支持 `NTLM`、`Kerberos`、`Negotiate` 和 `SSL` 传输协议。`NTL
         // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
+
 ### 2. Kerberos
 在一个 client 连接上配置 `Kerberos`：
 ```cpp
@@ -52,6 +54,7 @@ RCF 目前支持 `NTLM`、`Kerberos`、`Negotiate` 和 `SSL` 传输协议。`NTL
         // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
+
 ### 3. Negotiate
 `Negotiate` 是 `NTLM` 和 `Kerberos` 协议之间的一个协商协议。如果可能，它将解析为 `Kerberos`，否则解析为 `NTLM`。
 
@@ -70,6 +73,7 @@ RCF 目前支持 `NTLM`、`Kerberos`、`Negotiate` 和 `SSL` 传输协议。`NTL
         // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
+
 ### 4. SSL
 RCF 提供了两种 `SSL` 传输协议实现。一个基于跨平台 `OpenSSL` 库，另一个基于仅限 Windows 的 `Schannel` 包。
 

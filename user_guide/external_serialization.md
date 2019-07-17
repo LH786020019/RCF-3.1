@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:32:01
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 16:56:09
+ * @LastEditTime: 2019-07-17 18:42:49
  * @Description: file content
  -->
 ## 外部序列化
@@ -45,6 +45,7 @@ RCF_END(I_X)
         RCF_METHOD_V4(void , SomeOtherMethod, int, const std::vector<std::string> &, Person &, RCF::ByteBuffer)
     RCF_END(I_X)
 ```
+
 #### 1.2 协议缓冲区缓存(Protocol Buffer Caching)
 协议缓冲区生成的序列化和反序列化代码经过了高度优化。然而，为了充分利用这种性能，您可能希望在调用之间缓存和重用协议缓冲区对象，而不是创建新的对象。协议缓冲区对象的设计目的是保留它们分配的任何内存，并将在后续的序列化和反序列化操作中重用这些内存。
 
@@ -57,6 +58,7 @@ RCF_END(I_X)
     auto clearPerson = [](Person * pPerson) { pPerson->Clear();  };
     cache.enableCaching<Person>(10, clearPerson);
 ```
+
 ### 2. Boost.Serialization
 过去版本的 RCF 支持 [Boost.Serialization](http://www.boost.org/libs/serialization) 的使用，以作为 RCF 内部序列化框架的替代。
 

@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:27:44
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 16:42:36
+ * @LastEditTime: 2019-07-17 18:41:39
  * @Description: file content
  -->
 ## 高级序列化
@@ -75,6 +75,7 @@ RCF_END(I_Echo)
         x1.mAPtr.reset( new C() );
         x2 = client.Echo(x1);
 ```
+
 ### 2. 指针跟踪(Pointer Tracking)
 如果将指向同一对象的指针序列化两次，RCF 默认情况下将序列化整个对象两次。这意味着当指针反序列化时，它们将指向两个不同的对象。在大多数应用程序中，这通常不是问题。然而，一些应用程序可能希望反序列化代码创建两个指向相同对象的指针。
 
@@ -172,6 +173,7 @@ RCF_END(I_EchoX)
 - `T` 的 STL 容器(`std::vector<>`和`std::basic_string<>`除外)，其中 `T` 是 primitive
 - `std::vector<T>` 和 `std::basic_string<T>`，其中 `T` 是 primitive
 - `std::string`, `std::vector<char>`, 和 `RCF::ByteBuffer`
+
 ### 4. Unicode 字符串
 `std::wstring` 对象的序列化带来了一些可移植性问题，因为不同的平台对 `wchar_t` 有不同的定义，对于 `std::wstring` 有不同的 Unicode 编码。
 

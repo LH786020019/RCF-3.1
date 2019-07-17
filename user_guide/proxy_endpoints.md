@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:13:52
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 14:03:40
+ * @LastEditTime: 2019-07-17 18:43:51
  * @Description: file content
  -->
 ## 代理端点(Proxy Endpoints)
@@ -34,6 +34,7 @@
     std::vector<std::string> proxyEndpointNames;
     proxyServer.enumerateProxyEndpoints(proxyEndpointNames);
 ```
+
 ### 2. 配置一个目标 Server 
 目标 `RcfServer` 配置了一个 [RCF::ProxyEndpoint](http://www.deltavsoft.com/doc/class_r_c_f_1_1_proxy_endpoint.html) 参数，指定代理 server 的网络地址，目标 server 将公开为的名称。
 ```cpp

@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:16:36
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 15:04:31
+ * @LastEditTime: 2019-07-17 18:43:21
  * @Description: file content
  -->
 ## 文件传输
@@ -61,6 +61,7 @@ public:
     transferOptions.mBandwidthLimitBps = 1024 * 1024; // 1 MB/sec
     client.getClientStub().downloadFile(downloadId, fileToDownloadTo, &transferOptions);
 ```
+
 ### 2. 文件上传
 要将一个文件上传到一个 `RcfServer`，请使用 [RCF::ClientStub::uploadFile()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_client_stub.html#a8d2a5dbe6eabef001155c37037ab6984)。
 
@@ -201,6 +202,7 @@ RCF::BandwidthQuotaPtr uploadBandwidthQuotaCb(RCF::RcfSession & session){
     // 指定一个自定义文件上传带宽限制。
     server.setUploadBandwidthQuotaCallback(&uploadBandwidthQuotaCb);
 ```
+
 #### 5.3 Client 端带宽限制
 要从 client 端分配带宽限制，请使用 [RCF::FileTransferOptions::mBandwidthLimitBps](http://www.deltavsoft.com/doc/class_r_c_f_1_1_file_transfer_options.html#ab065964692da6577dd82b01949e37e9d) 和 [RCF::FileTransferOptions::mBandwidthQuotaPtr](http://www.deltavsoft.com/doc/class_r_c_f_1_1_file_transfer_options.html#a8ae457362ca43356b770fc17ea02a854)。
 

@@ -2,14 +2,16 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:25:41
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 16:05:37
+ * @LastEditTime: 2019-07-17 18:43:38
  * @Description: file content
  -->
 ## 性能
+
 ### 1. 远程调用
 RCF 的设计考虑到了两个关键的性能特性。当对单个连接执行重复的远程调用时，RCF 的 server 和 client 实现中的关键代码路径遵循以下两条原则:
 - 零复制(Zero copy) —— 没有对远程调用参数或缓冲区进行内部复制。
 - 零分配(Zero allocation) —— 没有进行内存分配。
+
 #### 1.1 零复制
 在 server 或 client 上发送或接收远程调用参数或数据时，RCF 不进行任何内部复制。
 

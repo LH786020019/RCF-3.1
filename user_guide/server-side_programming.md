@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-15 11:50:47
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-16 18:02:24
+ * @LastEditTime: 2019-07-17 18:44:40
  * @Description: file content
  -->
 ## 服务器端编程(Server-side Programming)
@@ -21,6 +21,7 @@ server.bind<I_PrintService>(printService);
 ```cpp
 server.start();
 ```
+
 ### 1. 配置一个 Server
 #### 1.1 添加传输
 一个 `RcfServer` 侦听来自客户机的远程调用的一个或多个传输。如果您设置的 server 只有一个传输，那么您可以向 `RcfServer` 构造函数提供相应的 [RCF::Endpoint](http://www.deltavsoft.com/doc/class_r_c_f_1_1_endpoint.html) 参数：
@@ -127,6 +128,7 @@ public:
     }
 };
 ```
+
 #### 2.1 会话对象(Session Objects)
 会话对象是应用程序 C++ 对象，它们存储在 RCF 会话中，因此可以在同一连接上的远程调用之间持久化。会话对象的一个典型用例是将应用程序特定的信息与一个连接关联起来。例如，应用程序逻辑可能要求在一个 client 连接之后，它应该做的第一件事是调用 `Login()` 方法。如果 `Login()` 方法成功，则需要持久化连接的已验证状态，以便对同一连接的后续调用可以访问它。
 

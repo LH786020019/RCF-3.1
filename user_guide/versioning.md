@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:22:04
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 15:42:38
+ * @LastEditTime: 2019-07-17 18:46:44
  * @Description: file content
  -->
 ## 版本控制
@@ -61,6 +61,7 @@ RCF_BEGIN(I_Calculator, "I_Calculator")
     RCF_METHOD_R2(double, subtract, double, double)
 RCF_END(I_Calculator)
 ```
+
 #### 1.2 添加或删除参数
 参数可以添加到方法中，也可以从方法中删除，而不会破坏兼容性。RCF server 和 client 忽略远程调用中传递的任何额外(冗余)参数，如果没有提供预期的参数，则默认初始化该参数。
 ```cpp
@@ -115,6 +116,7 @@ RCF_BEGIN(I_CalculatorService, "I_Calculator")
     RCF_METHOD_R2(double, add, double, double)
 RCF_END(I_CalculatorService)
 ```
+
 ### 2. 归档版本控制
 在远程调用中传递的应用程序特定的数据类型可能会随着时间而改变。随着这些数据类型的变化，它们的序列化函数也会发生变化。为了帮助应用程序维护序列化代码的向后兼容性，RCF 提供了一个归档版本号概念。
 
@@ -211,6 +213,7 @@ public:
     // If the server on port 50002 is new, this call will have archive version set to 1.
     x2 = client.Echo(x1);
 ```
+
 ### 3. 运行时版本控制
 RCF 保持与自身的运行时兼容性，适用于 RCF 2.0 之前的版本(包括RCF 2.0)。不保证运行时与大于 2.0 的 RCF 版本兼容。
 
@@ -250,6 +253,7 @@ RCF 的自动 client-server 版本协商处理运行时版本控制和归档版�
 |2.1|	11|
 |2.2|	12|
 |3.0|	13|
+
 ### 4. 协议缓冲区(Protocol Buffers)
 对于具有向后兼容性要求和较短或连续的发布周期的应用程序，归档版本控制可能变得难以管理。归档版本号的每个增量都涉及向序列化函数添加新的执行路径，并且随着时间的推移可能会导致复杂的序列化代码。
 
