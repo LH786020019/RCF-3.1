@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 16:02:23
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:37:18
+ * @LastEditTime: 2019-07-17 18:38:47
  * @Description: file content
  -->
 # 构建 RCF
@@ -36,6 +36,7 @@ RCF 有几个可选的依赖项([zlib](http://www.zlib.net/)、[OpenSSL](http://
 - 将 `SampleTcpClientServer.cpp` 文件添加到项目中。
 - 将 `<rcf_distro>\src\RCF\RCF.cpp` 文件添加到项目中。
 - 选择 `Build -> Build Solution`。
+
 #### 1.2 gcc
 从与 `SampleTcpClientServer.cpp` 相同的目录，运行以下命令：
 ```shell
@@ -55,6 +56,7 @@ g++ -std=c++1y SampleTcpClientServer.cpp ../../src/RCF/RCF.cpp -I../../include -
 |RCF_USE_CUSTOM_ALLOCATOR| 使用自定义内存分配器支持构建。	|
 |RCF_USE_CLOCK_MONOTONIC|	使用 `clock_gettime()` 实现一个单调时钟(monotonic clock)。|
 |RCF_MAX_METHOD_COUNT=<N>|	扩展一个 RCF 接口中允许的最大方法数量。|
+
 #### 3.1 笔记
 - `RCF_BUILD_DLL`
 在构建动态库时需要定义 RCF_BUILD_DLL。它将 public RCF 类和函数标记为 `DLL` 导出。
@@ -98,6 +100,7 @@ RCF 附带一组特性定义，允许用户使用一组特定的特性构建 RCF
 要使用这些定义，请将它们设置为0或1，这取决于是否应该包含该特性。
 
 例如，要构建不支持 `HTTP/HTTPS` 的 RCF，请在您的 build 中定义 `RCF_FEATURE_HTTP=0`。
+
 #### 4.1笔记
 - `RCF_FEATURE_FILETRANSFER`
 此文件传输特性使用标准 `C++ <filesystem>` 库。此库应该在任何支持 C++17 语言更新的编译器上可用。注意，如果您正在使用 gcc 或 clang，可能需要使用 `-std=c++17` 编译器选项来启用 cC++17 支持。
@@ -114,6 +117,7 @@ RCF 是用标准 C++ 编写的，因此应该构建在任何最新的符合标�
 - Visual C++ 2017(x86和x64)
 - gcc 7.0(x64)
 - clang 4.0(x64)
+
 ### 6. 支持的平台
 RCF 已经在 Windows 和 Linux 平台上测试过，但是您应该能够在以下任何一个平台上使用它：
 - Windows

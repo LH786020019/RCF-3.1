@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 14:38:26
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-15 11:28:14
+ * @LastEditTime: 2019-07-17 18:40:56
  * @Description: file content
  -->
 # 教程
@@ -13,6 +13,7 @@ RCF 是一个 C++ 库，允许在 C++ 进程之间进行远程调用。RCF 提�
 理解 RCF 如何工作的最简单的方法是直接进入并开始一个示例。本教程介绍了一个简单的基于 RCF 的 `client` 和 `server`，并随后使用它们来介绍 RCF 的基本特性。
 
 ### 1. Getting started
+
 #### 1.1 Hello World
 我们将从一个简单的基于 TCP 的 `client` 和 `server` 开始。我们希望编写一个 server，它公开一个 `print service`，该 service 接收来自 client 的消息并将其打印到标准输出。
 
@@ -52,7 +53,7 @@ int main(){
 }
 ```
 
-和`client`：
+和 `client`：
 ```cpp
 #include <iostream>
 #include <RCF/RCF.hpp>
@@ -150,6 +151,7 @@ I_PrintService service: Hello World
 - 如前所述，server 是单线程的。因此，无论并发连接多少 client，都没有并行存取(concurrent access) std::cout 的风险。
 
 本教程的其余部分将以这个示例为基础，演示 RCF 的一些基本特性。
+
 ### 2. 接口
 RCF 接口直接在代码中使用 C++ 定义。您可以像定义任何其他 C++ 代码一样定义 RCF 接口，然后将这些接口直接绑定到您的 C++ client 和 server 代码。
 
@@ -184,29 +186,23 @@ RCF_END(I_PrintService)
 ```
 将这些方法添加到 `I_PrintService` 接口后，我们还需要在 `PrintService` 服务对象中实现它们：
 ```cpp
-class PrintService
-{
+class PrintService{
 public:
-    void Print(const std::string & s)
-    {
+    void Print(const std::string & s){
         std::cout << "I_PrintService service: " << s << std::endl;
     }
-    int Print(const std::vector<std::string> & v)
-    {
+    int Print(const std::vector<std::string> & v){
         int howManyChars = 0;
-        for (std::size_t i=0; i<v.size(); ++i)
-        {
+        for (std::size_t i=0; i<v.size(); ++i) {
             std::cout << "I_PrintService service: " << v[i] << std::endl;
             howManyChars += (int) v[i].size();
         }
         return howManyChars;
     }
     
-    void Print(const std::vector<std::string> & v, int & howManyChars)
-    {
+    void Print(const std::vector<std::string> & v, int & howManyChars){
         howManyChars = 0;
-        for (std::size_t i=0; i<v.size(); ++i)
-        {
+        for (std::size_t i=0; i<v.size(); ++i) {
             std::cout << "I_PrintService service: " << v[i] << std::endl;
             howManyChars += (int) v[i].size();
         }
@@ -289,6 +285,7 @@ RcfClient<I_PrintService> client(RCF::TcpEndpoint(50001));
 LogMessage msg;
 client.Print(msg);
 ```
+
 ### 4. Client Stubs
 远程调用总是通过RcfClient<>实例进行的。每个RcfClient<>实例都包含一个RCF::ClientStub，可以通过调用RcfClient<>::getClientStub()访问它。client stub是几乎所有远程调用的客户端配置都发生的地方。
 
@@ -316,6 +313,7 @@ client.getClientStub().setRemoteCallProgressCallback(progressCallback,500);
 client.Print("Hello World");
 ```
 在RCF::ClientStub中记录了许多其他客户端配置设置。您可以在客户端编程中阅读更多关于客户端配置的信息。
+
 ### 5. Server Sessions
 在客户端，每个RcfClient<>实例控制到服务器的单个网络连接。在服务器端，RCF为每个到服务器的连接维护一个会话(RCF::RcfSession)。客户机连接的RcfSession可通过全局RCF::getCurrentRcfSession()函数提供给服务器端代码。
 
@@ -379,6 +377,7 @@ Destroyed PrintServiceSession object.
 当客户机连接关闭时，将销毁服务器会话和任何关联的会话对象。
 
 有关服务器会话的更多信息，请参见服务器端编程。
+
 ### 6. Transports
 在RCF中，传输层处理跨网络连接的消息传输。传输层由传递给RcfServer和RcfClient<>构造函数的端点参数决定。到目前为止，我们一直使用RCF::TcpEndpoint来指定TCP传输。
 
@@ -444,6 +443,7 @@ server.addEndpoint( RCF::Win32NamedPipeEndpoint("PrintSvrPipe") );
 server.start();
 ```
 有关transports的更多信息，请参见Transports。
+
 ### 7. 加密及认证
 RCF为远程调用的加密和身份验证提供了许多选项。加密和身份验证作为传输协议提供，在传输之上分层。
 
@@ -551,6 +551,7 @@ client.getClientStub().setEnableCompression(true);
 client.Print("Hello World");
 ```
 有关更多信息，请参见Transport protocols。
+
 ### 8. Server Threading
 默认情况下，RcfServer使用一个线程来处理传入的远程调用，因此远程调用是一个接一个地串行分配的。即使您在服务器中配置了多个传输，这些传输都将由一个线程提供服务。
 
@@ -590,6 +591,7 @@ pipeTransport.setThreadPool(pipeThreadPoolPtr);
 
 server.start();
 ```
+
 ### 9. 异步远程调用
 RCF通常同步执行远程调用，并将阻塞客户机线程，直到调用完成。RCF还允许异步执行远程调用。不是阻塞客户机线程，而是在稍后远程调用完成时通知客户机线程。
 
@@ -689,6 +691,7 @@ for (std::size_t i=0; i<50; ++i)
 如果必须使用同步调用来编写这段代码，则需要50个线程，每个线程连接到一个服务器。通过使用异步调用，我们可以用一个线程管理所有50个连接。对50台服务器的远程调用都在后台RCF线程上完成，当主线程超出作用域时，连接将自动销毁。
 
 有关更多信息，请参见异步远程调用。
+
 ### 10. Publish/subscribe
 假设我们的网络上有许多I_PrintService服务器，并且我们希望客户机对它们进行相同的Print()远程调用。要做到这一点，使用常规的双向远程调用将是乏味的。首先，我们必须以某种方式维护当前可用的I_PrintService服务器列表。假设我们有这样一个列表，那么我们必须手动调用每个服务器上的Print()，并使用相同的消息。
 
@@ -728,6 +731,7 @@ subPtr->close();
 发布者发出的每个调用都作为单向调用发送给所有订阅者。
 
 有关发布/订阅消息传递的更多信息，请参见 Publish/subscribe。
+
 ### 11. 文件传输
 文件下载和上传在分布式系统中很常见。对于较小的文件，您可以将它们加载到std::string(或者更好的方法是RCF::ByteBuffer)中，然后将它们发送出去。但是，对于足够大到超过连接的最大消息长度的文件，这种方法就失效了。
 
@@ -798,4 +802,4 @@ std::string downloadId = client.GetPrintSummary();
 RCF::Path downloadTo = "C:\\downloads";
 client.getClientStub().downloadFile(downloadId, downloadTo);
 ```
-有关更多信息，请参见文件传输。
+有关更多信息，请参见[文件传输](https://love2.io/@lh786020019/doc/RCF-3.1/user_guide/file_transfers.md)。
