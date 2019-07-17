@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-15 16:34:18
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 09:36:37
+ * @LastEditTime: 2019-07-17 18:21:58
  * @Description: file content
  -->
 ## 序列化
@@ -182,7 +182,7 @@ RCF_BEGIN(I_Echo, "I_Echo")
     RCF_METHOD_R1(std::uint64_t, Echo, std::uint64_t)
 RCF_END(I_Echo)
 ```
-### 5. 从磁盘到磁盘的序列化
+### 5. 从磁盘和到磁盘的序列化
 RCF 序列化可用于在磁盘和磁盘之间序列化对象。为此，使用 [SF::OBinaryStream](http://www.deltavsoft.com/doc/class_s_f_1_1_o_binary_stream.html) 和 [SF::IBinaryStream](http://www.deltavsoft.com/doc/class_s_f_1_1_i_binary_stream.html)：
 ```cpp
 std::string filename = "data.bin";

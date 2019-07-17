@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 14:32:03
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-16 10:50:20
+ * @LastEditTime: 2019-07-17 17:05:50
  * @Description: file content
  -->
 # Summary
@@ -28,6 +28,6 @@
   * [高级序列化](user_guide/advanced_serialization.md)
   * [外部序列化](user_guide/external_serialization.md)
   * [附录 —— 日志](user_guide/appendix_logging.md)
-  * [附录 —— 常见问题](user_guide/appendix_FAQ.md)
+  * [附录 —— 常见问题解答](user_guide/appendix_FAQ.md)
 * [构建 RCF](building_RCF/index.md)
 * [示例代码](sample_code/index.md)
