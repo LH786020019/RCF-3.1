@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:38:20
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:32:53
+ * @LastEditTime: 2019-07-17 18:33:38
  * @Description: file content
  -->
 ## 附录 —— 常见问题解答
@@ -248,4 +248,4 @@ RCF 将自动序列化和反序列化 `C++03 enum`，作为整数表示。
         client.getClientStub();
         server.start();
 ```
-C++ 语言的这种怪癖有时被称为[“C++ 最烦人的解析”](http://en.wikipedia.org/wiki/Most_vexing_parse)。
+C++ 语言的这种怪癖有时被称为[ “C++ 最烦人的解析”](http://en.wikipedia.org/wiki/Most_vexing_parse)。
