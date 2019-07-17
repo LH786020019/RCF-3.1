@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-12 16:02:23
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-15 11:39:36
+ * @LastEditTime: 2019-07-17 18:37:18
  * @Description: file content
  -->
 # 构建 RCF
@@ -21,6 +21,7 @@ RCF 有几个可选的依赖项([zlib](http://www.zlib.net/)、[OpenSSL](http://
 - 将 `<rcf_distro>/include` 设置为一个 include 路径。
 - 编译 `<rcf_distro>/src/RCF/RCF.cpp`。
 - 链接到任何相关的第三方库。
+
 ### 1. 构建示例
 编译和链接的实际细节将根据您使用的特定编译器而有所不同。
 - 如果使用 [Visual Studio](http://http//www.microsoft.com/visualstudio)，需要在 Visual C++ 项目的项目属性中设置 include 路径、编译器定义、链接器路径和链接器输入。
@@ -40,6 +41,7 @@ RCF 有几个可选的依赖项([zlib](http://www.zlib.net/)、[OpenSSL](http://
 ```shell
 g++ -std=c++1y SampleTcpClientServer.cpp ../../src/RCF/RCF.cpp -I../../include -lpthread -luuid -ldl -oSampleTcpClientServer
 ```
+
 ### 2. 动态和静态链接
 上面的示例将 `RCF.cpp` 直接编译到与 `SampleTcpClientServer.cpp` 相同的 C++ 模块中。我们还可以将 `RCF.cpp` 编译成一个静态或动态库。
 - 要构建一个静态库，请设置用于创建一个静态库的相关的编译器开关，并像往常一样编译 RCF.cpp。
