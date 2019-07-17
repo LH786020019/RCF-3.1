@@ -2,87 +2,87 @@
  * @Author: haoluo
  * @Date: 2019-07-16 09:18:41
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-16 10:03:13
+ * @LastEditTime: 2019-07-17 11:48:13
  * @Description: file content
  -->
 ## 传输协议
-传输协议用于转换通过传输的数据。RCF使用传输协议为远程调用提供身份验证、加密和压缩。
+传输协议用于转换通过传输的数据。RCF 使用传输协议为远程调用提供身份验证、加密和压缩。
 
-RCF目前支持NTLM、Kerberos、协商和SSL传输协议。NTLM、Kerberos和协商只在Windows平台上受支持，而SSL在所有平台上都受支持。
+RCF 目前支持 `NTLM`、`Kerberos`、`Negotiate` 和 `SSL` 传输协议。`NTLM`、`Kerberos` 和 `Negotiate` 只在 Windows 平台上受支持，而 `SSL` 在所有平台上都受支持。
 
-此外，RCF还支持基于zlib的远程调用压缩。
+此外，RCF 还支持基于 `Zlib` 的远程调用压缩。
 
-传输协议是通过调用RCF::ClientStub::setTransportProtocol()在客户端连接上配置的：
+传输协议是通过调用 [RCF::ClientStub::setTransportProtocol()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_client_stub.html#a3e1cbd34dc1006000319356737008a63) 在一个 client 连接上配置的：
 ```cpp
         RcfClient<I_PrintService> client(( RCF::TcpEndpoint(port) ));
         client.getClientStub().setTransportProtocol(RCF::Tp_Ntlm);
 ```
-在客户机连接的服务器会话中，可以调用RCF::RcfSession::getTransportProtocol()来确定客户机正在使用的传输prococol：
+在一个 client 连接的 server 会话中，可以调用 [RCF::RcfSession::getTransportProtocol()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_session.html#a282b5988695fbe26d63ccc6ec4f97970) 来确定 client 正在使用的传输协议：
 ```cpp
         RCF::RcfSession & session = RCF::getCurrentRcfSession();
         RCF::TransportProtocol tp = session.getTransportProtocol();
 ```
-NTLM
-要在客户端连接上配置NTLM：
+### 1. NTLM
+在一个 client 连接上配置 `NTLM`：
 ```cpp
     RcfClient<I_PrintService> client(( RCF::TcpEndpoint(port) ));
     client.getClientStub().setTransportProtocol(RCF::Tp_Ntlm);
     client.Print("Hello World");
 ```
-在服务器端，您可以确定客户端的Windows用户名，并模拟它们：
+在 server 端，您可以确定 client 的 Windows 用户名，并模拟(impersonate)它们：
 ```cpp
         std::string clientUsername = session.getClientUserName();
         RCF::SspiImpersonator impersonator(session);
-        // We are now impersonating the client, until impersonator goes out of scope.
+        // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
-Kerberos
-要在客户机连接上配置Kerberos：
+### 2. Kerberos
+在一个 client 连接上配置 `Kerberos`：
 ```cpp
         client.getClientStub().setTransportProtocol(RCF::Tp_Kerberos);
         client.getClientStub().setKerberosSpn("Domain\\ServerAccount");
         client.Print("Hello World");
 ```
-注意，客户机需要调用ClientStub::setKerberosSpn()来指定它期望服务器运行的用户名。这称为服务器的SPN(服务主体名)，Kerberos协议中使用它来实现相互身份验证。如果服务器不在此帐户下运行，连接将失败。
+注意，client 需要调用 `ClientStub::setKerberosSpn()` 来指定它期望 server 运行的用户名。这称为 server 的 `SPN` (Service Principal Name，服务主体名)，`Kerberos` 协议中使用它来实现相互身份验证。如果 server 不在此帐户下运行，连接将失败。
 
-在服务器端，您可以确定客户端的Windows用户名，并模拟它们：
+在 server 端，您可以确定 client 的 Windows 用户名，并模拟(impersonate)它们：
 ```cpp
         std::string clientUsername = session.getClientUserName();
         RCF::SspiImpersonator impersonator(session);
-        // We are now impersonating the client, until impersonator goes out of scope.
+        // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
-Negotiate
-协商是NTLM和Kerberos协议之间的协商协议。如果可能，它将解析为Kerberos，否则返回到NTLM。
+### 3. Negotiate
+`Negotiate` 是 `NTLM` 和 `Kerberos` 协议之间的一个协商协议。如果可能，它将解析为 `Kerberos`，否则解析为 `NTLM`。
 
-配置客户端连接上的协商：
+在一个 client 连接上配置 `Negotiate`：
 ```cpp
         client.getClientStub().setTransportProtocol(RCF::Tp_Negotiate);
         client.getClientStub().setKerberosSpn("Domain\\ServerAccount");
         client.Print("Hello World");
 ```
-与Kerberos传输协议一样，您需要为服务器提供SPN。
+与 `Kerberos` 传输协议一样，您需要为 server 提供一个 `SPN`。
 
-在服务器端，您可以确定客户端的Windows用户名，并模拟它们：
+在 server 端，您可以确定 client 的 Windows 用户名，并模拟(impersonate)它们：
 ```cpp
         std::string clientUsername = session.getClientUserName();
         RCF::SspiImpersonator impersonator(session);
-        // We are now impersonating the client, until impersonator goes out of scope.
+        // 我们现在正在模拟 client，直到 `impersonator` 超出范围为止。
         // ...
 ```
-SSL
-RCF提供了两种SSL传输协议实现。一个基于跨平台OpenSSL库，另一个基于仅限windows的Schannel包。
+### 4. SSL
+RCF 提供了两种 `SSL` 传输协议实现。一个基于跨平台 `OpenSSL` 库，另一个基于仅限 Windows 的 `Schannel` 包。
 
-只有在定义了RCF_USE_OPENSSL之后，才可以使用OpenSSL支持。
+只有在定义了 `RCF_USE_OPENSSL` 之后，才可以使用 `OpenSSL` 支持。
 
-Schannel支持只在Windows构建中可用，不需要任何定义。
+`Schannel` 支持只在 Windows 构建中可用，不需要任何定义。
 
-如果在Windows构建中定义RCF_USE_OPENSSL, RCF将使用OpenSSL而不是Schannel。你想应该使用Schannel,尽管定义RCF_USE_OPENSSL,您可以设置SSL实现单个服务器和客户端使用RCF:: RcfServer: setSslImplementation()和RCF:: ClientStub: setSslImplementation()函数,或者将其设置为整个RCF运行时使用RCF::全局变量:setDefaultSslImplementation()函数。
+如果在 Windows 构建中定义 `RCF_USE_OPENSSL`, RCF将使用 `OpenSSL` 而不是 `Schannel`。如果你想使用 `Schannel`，尽管定义了 `RCF_USE_OPENSSL`，您可以使用 [RCF::RcfServer::setSslImplementation()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#af60d05d5e41fd7ed16ed3efe5f7c703b) 和 [RCF::ClientStub::setSslImplementation()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_client_stub.html#a01372c4b051eee29e6a4c6da97510b51) 函数，来为各个 server 和 client 设置 SSL 实现,或者使用 [RCF::Globals::setDefaultSslImplementation()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_globals.html#ac73afd1c6fe86c3982e8a9c4f62b4976) 函数，以设置 SSL 实现用于整个 RCF 运行时。
 
-SSL协议使用证书对客户机的服务器进行身份验证(也可以选择对服务器的客户机进行身份验证)。证书和证书验证功能由两种SSL传输协议实现以不同的方式处理，如下所述。
+SSL 协议使用证书对 client 的 server 进行身份验证(也可以选择对 server 的 client 进行身份验证)。证书和证书验证功能由两种 SSL 传输协议实现以不同的方式处理，如下所述。
 
-Schannel
-要配置服务器以接受SSL连接，需要提供服务器证书。RCF提供了RCF::PfxCertificate类，用于从.pfx和.p12文件加载证书：
+#### 4.1 Schannel
+配置一个 server 以接受 SSL 连接，您需要提供一个 server 证书。RCF 提供了 [RCF::PfxCertificate](http://www.deltavsoft.com/doc/class_r_c_f_1_1_pfx_certificate.html) 类，用于从 `.pfx` 和 `.p12` 文件加载证书：
 ```cpp
         RCF::CertificatePtr serverCertPtr( new RCF::PfxCertificate(
             "C:\\serverCert.p12", 
@@ -90,7 +90,7 @@ Schannel
             "CertificateName") );
         server.setCertificate(serverCertPtr);
 ```
-RCF还提供了RCF::StoreCertificate类，用于从Windows证书商店加载证书：
+RCF 还提供了 [RCF::StoreCertificate](http://www.deltavsoft.com/doc/class_r_c_f_1_1_store_certificate.html) 类，用于从 Windows 证书存储加载证书：
 ```cpp
         RCF::CertificatePtr serverCertPtr( new RCF::StoreCertificate(
             RCF::Cl_LocalMachine,
@@ -98,13 +98,13 @@ RCF还提供了RCF::StoreCertificate类，用于从Windows证书商店加载证�
             "CertificateName") );
         server.setCertificate(serverCertPtr);
 ```
-在客户机上，需要提供验证服务器提供的证书的方法。有几种方法可以做到这一点。您可以让Schannel包应用它自己的内部验证逻辑，它将遵从本地安装的证书颁发机构：
+在 client 上，您需要提供验证 server 提供的证书的方法。有几种方法可以做到这一点。您可以让 `Schannel` 包应用它自己的内部验证逻辑，它将遵从本地安装的认证中心(certificate authorities)：
 ```cpp
         client.getClientStub().setTransportProtocol(RCF::Tp_Ssl);
         client.getClientStub().setEnableSchannelCertificateValidation("CertificateName");
         client.Print("Hello World");
 ```
-您还可以自己提供一个特定的证书颁发机构，用于验证服务器证书：
+您还可以自己提供一个特定的认证中心(certificate authorities)，用于验证 server 证书：
 ```cpp
         RCF::CertificatePtr caCertPtr( new RCF::PfxCertificate(
             "C:\\clientCaCertificate.p12", 
@@ -114,26 +114,23 @@ RCF还提供了RCF::StoreCertificate类，用于从Windows证书商店加载证�
 ```
 您还可以编写自己的自定义证书验证逻辑：
 ```cpp
-bool schannelValidateCert(RCF::Certificate * pCert)
-{
+bool schannelValidateCert(RCF::Certificate * pCert){
     RCF::Win32Certificate * pWin32Cert = static_cast<RCF::Win32Certificate *>(pCert);
-    if (pWin32Cert)
-    {
+    if (pWin32Cert) {
         RCF::tstring certName = pWin32Cert->getCertificateName();
         RCF::tstring issuerName = pWin32Cert->getIssuerName();
         PCCERT_CONTEXT pContext = pWin32Cert->getWin32Context();
-        // Custom code to inspect and validate certificate.
+        // 用于检查和验证证书的自定义代码
         // ...
     }
-    // Return true if the certificate is considered valid. Otherwise, return false,
-    // or throw an exception.
+    // 如果认为证书有效，则返回 true。否则，返回 false 或抛出异常。
     return true;
 }
 ```
 ```cpp
         client.getClientStub().setCertificateValidationCallback(&schannelValidateCert);
 ```
-RCF客户端也可以配置为向服务器提供证书：
+RCF client 端也可以配置为向 server 提供一个证书：
 ```cpp
         RCF::CertificatePtr clientCertPtr( new RCF::PfxCertificate(
             "C:\\clientCert.p12", 
@@ -141,24 +138,24 @@ RCF客户端也可以配置为向服务器提供证书：
             "CertificateName") );
         client.getClientStub().setCertificate(clientCertPtr);
 ```
-服务器端证书验证与客户端证书验证的方法相同，但是使用RCF::RcfServer::setEnableSchannelCertificateValidation()、RCF::RcfServer::setCertificateValidationCallback()和RCF::RcfServer::setCaCertificate()函数。
+Server 端证书验证与 client 端证书验证的方法相同，但是使用 [RCF::RcfServer::setEnableSchannelCertificateValidation()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#a26480ecccf19f9753c6c53c858e8852d)、[RCF::RcfServer::setCertificateValidationCallback()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#a6fc0948f012a9ad35d409c99f0623887) 和 [RCF::RcfServer::setCaCertificate()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#ab2919c0b64ddb069f1493bfe8238e46f) 函数。
 
-OpenSSL
-当使用基于openssl的SSL传输协议时，需要使用RCF::PemCertificate类从.pem文件加载证书。下面是一个提供服务器证书的例子：
+#### 4.2 OpenSSL
+当使用基于 `OpenSSL` 的 SSL 传输协议时，需要使用 [RCF::PemCertificate](http://www.deltavsoft.com/doc/class_r_c_f_1_1_pem_certificate.html) 类从 `.pem` 文件加载证书。下面是一个提供 server 证书的例子：
 ```cpp
         RCF::CertificatePtr serverCertPtr( new RCF::PemCertificate(
             "C:\\serverCert.pem", 
             "password") );
         server.setCertificate(serverCertPtr);
 ```
-客户机可以通过两种方式验证服务器证书。它可以提供一个证书颁发机构证书：
+Client 可以通过两种方式验证 server 证书。它可以提供一个证书认证中心：
 ```cpp
         RCF::CertificatePtr caCertPtr( new RCF::PemCertificate(
             "C:\\clientCaCertificate.pem", 
             "password"));
         client.getClientStub().setCaCertificate(caCertPtr);
 ```
-，或者可以在回调函数中提供自定义验证逻辑：
+，或者可以在一个回调函数中提供自定义验证逻辑：
 ```cpp
 bool opensslValidateCert(RCF::Certificate * pCert)
 {
@@ -178,25 +175,25 @@ bool opensslValidateCert(RCF::Certificate * pCert)
 ```cpp
         client.getClientStub().setCertificateValidationCallback(&opensslValidateCert);
 ```
-客户端也可以提供自己的证书，提交给服务器:
+Client 端也可以提供自己的证书，提交给 server:
 ```cpp
         RCF::CertificatePtr clientCertPtr( new RCF::PemCertificate(
             "C:\\clientCert.pem", 
             "password") );
         client.getClientStub().setCertificate(clientCertPtr);
 ```
-服务器端证书验证与客户端证书验证的方法相同，但是使用RCF::RcfServer::setCertificateValidationCallback()和RCF::RcfServer::setCaCertificate()函数。
+Server 端证书验证与 client 端证书验证的方法相同，但是使用 [RCF::RcfServer::setCertificateValidationCallback()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#a6fc0948f012a9ad35d409c99f0623887) 和 [RCF::RcfServer::setCaCertificate()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_rcf_server.html#ab2919c0b64ddb069f1493bfe8238e46f) 函数。
 
-压缩
-RCF支持远程调用的传输级压缩。要构建支持压缩的RCF，请定义RCF_USE_ZLIB(参见构建RCF)。
+### 5. 压缩
+RCF 支持远程调用的传输级压缩。要构建支持压缩的 RCF，请定义 `RCF_USE_ZLIB`（ 请参阅[构建 RCF](https://love2.io/@lh786020019/doc/RCF-3.1/building_RCF/index.md) ）。
 
-压缩是独立于其他传输协议配置的，使用RCF::ClientStub::setEnableCompression()：
+压缩是独立于其他传输协议配置的，使用 [RCF::ClientStub::setEnableCompression()](http://www.deltavsoft.com/doc/class_r_c_f_1_1_client_stub.html#a22f4147ef26b2b117999e1ce7066d953)：
 ```cpp
         RcfClient<I_PrintService> client(( RCF::TcpEndpoint(port) ));
         client.getClientStub().setEnableCompression(true);
         client.Print("Hello World");
 ```
-RCF在传输协议阶段之前应用压缩阶段。例如，如果您在同一个连接上配置压缩和NTLM：
+RCF 在传输协议阶段之前应用压缩阶段。例如，如果您在同一个连接上配置压缩和 `NTLM`：
 ```cpp
         RcfClient<I_PrintService> client(( RCF::TcpEndpoint(port) ));
         client.getClientStub().setTransportProtocol(RCF::Tp_Ntlm);      
