@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-15 16:34:18
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:44:21
+ * @LastEditTime: 2019-07-18 15:58:38
  * @Description: file content
  -->
 ## 序列化
@@ -13,26 +13,26 @@ RCF 提供了一个内置的序列化框架，它可以自动处理常见 C++ �
 基本 C++ 类型(`char`、`int`、`double`等)的序列化由 RCF 自动处理。序列化其他一些常见和标准的 C++ 类型需要包含相关的头文件：
 |类型  |要包含的序列化头|
 |--|--|
-|std::string, std::wstring, std::basic_string<>	|#include <SF/string.hpp>|
-|std::vector<>|	#include <SF/vector.hpp>|
-|std::list<>|	#include <SF/list.hpp>|
-|std::deque<>|	#include <SF/deque.hpp>|
-|std::set<>|	#include <SF/set.hpp>|
-|std::map<>|	#include <SF/map.hpp>|
-|std::pair<>|	#include <SF/utility.hpp>|
-|std::bitset<>|	#include <SF/bitset.hpp>|
-|std::auto_ptr<>|	#include <SF/auto_ptr.hpp>|
-|std::unique_ptr<>|	#include <SF/unique_ptr.hpp>|
-|std::shared_ptr<>|	#include <SF/shared_ptr.hpp>|
-|std::tuple<>|	#include <SF/tuple.hpp>|
-|std::array<>|	#include <SF/array.hpp>|
-|boost::scoped_ptr<>|	#include <SF/boost/scoped_ptr.hpp>|
-|boost::shared_ptr<>|	#include <SF/boost/shared_ptr.hpp>|
-|boost::intrusive_ptr<>|	#include <SF/boost/intrusive_ptr.hpp>|
-|boost::any|	#include <SF/boost/any.hpp>|
-|boost::tuple<>|	#include <SF/boost/tuple.hpp>|
-|boost::variant<>|	#include <SF/boost/variant.hpp>|
-|boost::array<>|	#include <SF/boost/array.hpp>|
+|std::string, std::wstring, std::basic_string<>	|`#include <SF/string.hpp>`|
+|std::vector<>|	`#include <SF/vector.hpp>`|
+|std::list<>|	`#include <SF/list.hpp>`|
+|std::deque<>|	`#include <SF/deque.hpp>`|
+|std::set<>|	`#include <SF/set.hpp>`|
+|std::map<>|	`#include <SF/map.hpp>`|
+|std::pair<>|	`#include <SF/utility.hpp>`|
+|std::bitset<>|	`#include <SF/bitset.hpp>`|
+|std::auto_ptr<>|	`#include <SF/auto_ptr.hpp>`|
+|std::unique_ptr<>|	`#include <SF/unique_ptr.hpp>`|
+|std::shared_ptr<>|	`#include <SF/shared_ptr.hpp>`|
+|std::tuple<>|	`#include <SF/tuple.hpp>`|
+|std::array<>|	`#include <SF/array.hpp>`|
+|boost::scoped_ptr<>|	`#include <SF/boost/scoped_ptr.hpp>`|
+|boost::shared_ptr<>|	`#include <SF/boost/shared_ptr.hpp>`|
+|boost::intrusive_ptr<>|	`#include <SF/boost/intrusive_ptr.hpp>`|
+|boost::any|	`#include <SF/boost/any.hpp>`|
+|boost::tuple<>|	`#include <SF/boost/tuple.hpp>`|
+|boost::variant<>|	`#include <SF/boost/variant.hpp>`|
+|boost::array<>|	`#include <SF/boost/array.hpp>`|
 C++ enum 被自动序列化为整数。C++11 enum 类的序列化需要使用一个 helper 宏：
 ```cpp
 // Legacy C++ enum，自动序列化为'int'
