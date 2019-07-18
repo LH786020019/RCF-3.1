@@ -2,7 +2,7 @@
  * @Author: haoluo
  * @Date: 2019-07-16 10:22:04
  * @LastEditors: haoluo
- * @LastEditTime: 2019-07-17 18:46:44
+ * @LastEditTime: 2019-07-18 16:10:11
  * @Description: file content
  -->
 ## 版本控制
@@ -247,6 +247,7 @@ RCF 的自动 client-server 版本协商处理运行时版本控制和归档版�
     pubPtr->publish().getClientStub().setArchiveVersion(5); // Application archive version 5.
 ```
 作为参考，下面是每个 RCF 版本的运行时版本号表。
+
 |RCF 发布版 |   运行时版本号|
 |--|--|
 |2.0|	10|
